@@ -33,25 +33,23 @@
             100% { color: yellow; }
         }
 
-        img {
-            margin-top: 40px;
-            max-width: 80vw;
-            max-height: 60vh;
-            border: 10px solid white;
-            animation: rotateBorder 2s infinite linear;
+        .floating-image {
+            position: absolute;
+            width: 200px;
+            animation: flyAndSpin 10s linear infinite;
         }
 
-        @keyframes rotateBorder {
-            0% { border-color: red; }
-            25% { border-color: green; }
-            50% { border-color: blue; }
-            75% { border-color: purple; }
-            100% { border-color: red; }
+        @keyframes flyAndSpin {
+            0%   { top: 0%; left: 0%; transform: rotate(0deg); }
+            25%  { top: 10%; left: 80%; transform: rotate(90deg); }
+            50%  { top: 60%; left: 60%; transform: rotate(180deg); }
+            75%  { top: 80%; left: 10%; transform: rotate(270deg); }
+            100% { top: 0%; left: 0%; transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <h1>The doctor will see you now</h1>
-    <img src="f9941d3b-d70b-4e15-a46d-07d5f15217e8.png" alt="Doctor image">
+    <img class="floating-image" src="f9941d3b-d70b-4e15-a46d-07d5f15217e8.png" alt="Doctor image">
 </body>
 </html>
