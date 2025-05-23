@@ -36,20 +36,37 @@
         .floating-image {
             position: absolute;
             width: 200px;
-            animation: flyAndSpin 10s linear infinite;
-        }
-
-        @keyframes flyAndSpin {
-            0%   { top: 0%; left: 0%; transform: rotate(0deg); }
-            25%  { top: 10%; left: 80%; transform: rotate(90deg); }
-            50%  { top: 60%; left: 60%; transform: rotate(180deg); }
-            75%  { top: 80%; left: 10%; transform: rotate(270deg); }
-            100% { top: 0%; left: 0%; transform: rotate(360deg); }
+            cursor: move;
+            user-select: none;
         }
     </style>
 </head>
 <body>
     <h1>The doctor will see you now</h1>
-    <img class="floating-image" src="f9941d3b-d70b-4e15-a46d-07d5f15217e8.png" alt="Doctor image">
+    <img class="floating-image" id="drImage" src="f9941d3b-d70b-4e15-a46d-07d5f15217e8.png" alt="Doctor image">
+
+    <script>
+        const img = document.getElementById('drImage');
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        img.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - img.offsetLeft;
+            offsetY = e.clientY - img.offsetTop;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                img.style.left = `${e.clientX - offsetX}px`;
+                img.style.top = `${e.clientY - offsetY}px`;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    </script>
 </body>
 </html>
