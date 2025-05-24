@@ -9,7 +9,7 @@
             background: black;
             color: white;
             text-align: center;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             overflow: hidden;
             animation: partyBackground 1s infinite alternate;
         }
@@ -26,11 +26,12 @@
             font-size: 3em;
             margin-top: 20px;
             animation: flashText 0.5s infinite alternate;
+            text-shadow: 2px 2px 5px #000000;
         }
 
         @keyframes flashText {
-            0% { color: white; }
-            100% { color: yellow; }
+            0% { color: white; transform: rotate(-2deg); }
+            100% { color: yellow; transform: rotate(2deg); }
         }
 
         .floating-image {
@@ -38,6 +39,28 @@
             width: 200px;
             cursor: move;
             user-select: none;
+            animation: bounceAndPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes bounceAndPulse {
+            0% { transform: scale(1) translateY(0); }
+            25% { transform: scale(1.2) translateY(-10px); }
+            50% { transform: scale(0.8) translateY(10px); }
+            75% { transform: scale(1.1) translateY(-5px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            animation: confettiRain 5s linear infinite;
+        }
+
+        @keyframes confettiRain {
+            0% { transform: translateY(-10px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
         }
     </style>
 </head>
@@ -46,6 +69,7 @@
     <img class="floating-image" id="drImage" src="f9941d3b-d70b-4e15-a46d-07d5f15217e8.png" alt="Doctor image">
 
     <script>
+        // Dragging functionality
         const img = document.getElementById('drImage');
         let isDragging = false;
         let offsetX = 0;
@@ -67,6 +91,19 @@
         document.addEventListener('mouseup', () => {
             isDragging = false;
         });
+
+        // Confetti generator
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = `${3 + Math.random() * 3}s`;
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 6000);
+        }
+
+        setInterval(createConfetti, 100);
     </script>
 </body>
 </html>
